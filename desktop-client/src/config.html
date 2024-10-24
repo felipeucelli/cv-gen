@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurar Servidor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FAFAFA;
+            color: #333;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #6200EA;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .config-option {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #E0E0E0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #6200EA;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #3700B3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Configurar Servidor</h2>
+
+        <div class="config-option">
+            <label for="configType">Escolha o tipo de configuração:</label>
+            <select id="configType", disabled>
+                <option value="ip">Configurar IP</option>
+                <option value="firebase">Configurar Firebase</option>
+            </select>
+        </div>
+
+        <div id="ip-config" class="config-option">
+            <label for="server-ip">IP do Servidor:</label>
+            <input type="text" id="server-ip" placeholder="Ex: 192.168.1.1:3001" />
+        </div>
+
+        <div id="firebase-config" class="config-option" style="display: none;">
+            <label for="firebase-api-key">Firebase API Key:</label>
+            <input type="text" id="firebase-api-key" placeholder="API Key" />
+            <label for="firebase-url">Firebase Database URL:</label>
+            <input type="text" id="firebase-url" placeholder="Ex: https://seu-firebase.firebaseio.com" />
+        </div>
+
+        <button id="save-config">Salvar Configurações</button>
+    </div>
+
+    <script>
+        document.getElementById('configType').addEventListener('change', function () {
+            const configType = this.value;
+            if (configType === 'ip') {
+                document.getElementById('ip-config').style.display = 'block';
+                document.getElementById('firebase-config').style.display = 'none';
+            } else {
+                document.getElementById('ip-config').style.display = 'none';
+                document.getElementById('firebase-config').style.display = 'block';
+            }
+        });
+
+        // Enviar as configurações salvas
+        document.getElementById('save-config').addEventListener('click', () => {
+            const configType = document.getElementById('configType').value;
+            let configData;
+
+            if (configType === 'ip') {
+                const serverIP = document.getElementById('server-ip').value;
+                configData = { type: 'ip', ip: serverIP };
+            } else {
+                const firebaseApiKey = document.getElementById('firebase-api-key').value;
+                const firebaseUrl = document.getElementById('firebase-url').value;
+                configData = { type: 'firebase', apiKey: firebaseApiKey, databaseUrl: firebaseUrl };
+            }
+
+            // Enviar as configurações para o processo principal
+            window.electronAPI.send('save-server-config', configData);
+
+            // Mostrar uma caixa de diálogo perguntando se o usuário deseja reiniciar
+            const restartConfirmation = confirm("As configurações foram salvas. A interface precisa ser reiniciada para aplicar as mudanças. Deseja reiniciar agora?");
+
+            if (restartConfirmation) {
+                // Se o usuário clicar em "Sim", reinicia a interface
+                window.electronAPI.send('reload');
+                 // Isso reinicia a página, simulando um reinício
+            }
+            // Caso contrário, o diálogo será fechado e nada acontece
+        });
+    </script>
+</body>
+</html>
