@@ -13,7 +13,7 @@ CV-Gen é um sistema desenvolvido para empresas que desejam automatizar a criaç
 
  ## Requisitos
 
- - **Node.js**: Versão 20.9.0 ou superior.
+ - [Node.js](https://nodejs.org/en): Versão 20.9.0 ou superior.
 
  - **Sistema Operacional**:
     - Interface Electron compatível com Windows 10 ou superior
@@ -36,14 +36,14 @@ CV-Gen é um sistema desenvolvido para empresas que desejam automatizar a criaç
         ```bash
         npm install
         ```
- ## Construção e Deploy
+ ## Construção
  ### Servidor Node.js e Página React.js
 
- 1. **Build do Projeto**: Dentro da pasta do projeto, execute:
+ 1. **Build do Projeto**: Dentro da pasta do client-server, execute:
     ```bash
     npm run build
     ```
-    Isso irá gerar a página web otimizada para deploy.
+    Isso irá gerar a página web otimizada para produção.
 
 2. **Iniciar o Servidor**: Após a construção, inicie o servidor com o comando:
 
@@ -59,12 +59,12 @@ CV-Gen é um sistema desenvolvido para empresas que desejam automatizar a criaç
 
  ### Interface Electron
 
-  1. **Build da Interface**: Para construir a aplicação Electron em um arquivo executável (`.exe`), execute:
+  1. **Build da Interface**: Para construir a aplicação Electron em um arquivo executável (`.exe`), abra a pasta desktop-client e execute:
 
         ```bash
         npm run build
         ```
-        O arquivo será gerado dentro da pasta`dist/`.
+        O arquivo será gerado dentro da pasta`desktop-client/dist/`.
 
 ## Configuração da Interface
 
@@ -106,6 +106,6 @@ Após o preenchimento e envio do formulário pelo cliente, clique em "**Atualiza
 
 - [React.js](https://react.dev/) para a criação da página web responsiva.
 
-- [Electron](https://www.electronjs.org/) para a construção da interface desktop de controle.
+- [Electron.js](https://www.electronjs.org/) para a construção da interface desktop de controle.
 
 - [Docxtemplate](https://docxtemplater.com/) para a geração do arquivo `.docx`.
