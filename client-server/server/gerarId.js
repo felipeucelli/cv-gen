@@ -43,7 +43,6 @@ function adicionarId() {
   console.log('ID adicionada ao JSON:', novaSequencia);
 }
 
-// Exemplo de uso
 module.exports = {
   adicionarId
 };
