@@ -28,11 +28,11 @@ CV-Gen é um sistema desenvolvido para empresas que desejam automatizar a criaç
 
  2. **Instalação das Dependências**:
 
-    - Acesse a pasta raiz do client-server e execute:
+    - Acesse a pasta raiz do client-server e execute no terminal do seu sistema:
         ```bash
         npm install
         ```
-    - Acesse a pasta raiz do desktop-client e execute:
+    - Acesse a pasta raiz do desktop-client e execute e execute no terminal do seu sistema:
         ```bash
         npm install
         ```
@@ -52,9 +52,19 @@ CV-Gen é um sistema desenvolvido para empresas que desejam automatizar a criaç
     ```
      Por padrão, a aplicação será iniciada na porta `3001`. Caso queira definir uma porta diferente, use:
 
-    ```bash
-    PORT=NUMERO_DA_PORTA node server/server.js
-    ```
+     - No bash do linux:
+         ```bash
+         PORT=NUMERO_DA_PORTA node server/server.js
+         ```
+     - Caso esteja usando o CMD no Windows, use:
+         ```cmd
+         set PORT=NUMERO_DA_PORTA && node server/server.js
+         ```
+     - Ou caso esteja usando o PowerShell, use:
+         ```powershell
+         $env:PORT=NUMERO_DA_PORTA; node server/server.js
+         ```
+
     Para manter o servidor em execução, considere utilizar um gerenciador de processos como [PM2](https://pm2.keymetrics.io/) para maior controle.
 
  ### Interface Electron
