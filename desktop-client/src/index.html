@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Currículos</title>
+    <!-- Fonte Google Material Icons e Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F5F5F5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden; /* Impede rolagem do corpo */
+        }
+
+        header {
+            padding: 16px;
+            background-color: #6200EA;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        button {
+            background-color: #6200EA;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #3700B3;
+        }
+
+        button:disabled {
+            background-color: #D1C4E9;
+            cursor: not-allowed;
+        }
+
+        .material-icons {
+            font-size: 18px;
+        }
+
+        #container {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden; /* Impede que o container principal role */
+        }
+
+        #jsonList {
+            width: 240px;
+            background-color: #FFFFFF;
+            padding: 16px;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* Permite rolagem interna */
+            max-height: calc(100vh - 120px); /* Limita a altura da lista */
+        }
+
+        #jsonList div {
+            padding: 10px;
+            border-bottom: 1px solid #E0E0E0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #jsonList div:hover {
+            background-color: #F1F3F4;
+        }
+
+        #content {
+            flex: 1;
+            padding: 16px;
+            background-color: #FAFAFA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden; /* Impede rolagem do conteúdo principal */
+        }
+
+        #content button {
+            width: 200px;
+        }
+
+        #link-gerado {
+            margin-top: 16px;
+            font-size: 1rem;
+            color: white;
+            word-wrap: break-word;
+        }
+
+        .file-item {
+            padding: 10px;
+            border-bottom: 1px solid #E0E0E0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .file-item:hover, .file-item.selected {
+            background-color: #E0E0FF;
+        }
+
+        #gerar-curriculo {
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #6f00ff;
+            flex-shrink: 0; /* Impede crescimento vertical */
+        }
+
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .left-panel h1 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .left-panel button {
+            margin-top: 10px;
+            background-color: white;
+            border: none;
+            color: #6f00ff;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .left-panel button span.material-icons {
+            margin-right: 8px;
+        }
+
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        #gerar-link, #configurar {
+            background-color: white;
+            border: none;
+            color: #6f00ff;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #gerar-link span.material-icons, #configurar span.material-icons {
+            margin-right: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s ease-in-out; /* Transição suave */
+        }
+
+        /* Efeito de clique: botão é "pressionado" */
+        button:active {
+            transform: scale(0.95); /* Diminui o tamanho em 5% quando clicado */
+        }
+
+        #search-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        #search {
+            background: #F1F3F4;
+            border: none;
+            padding: 12px;
+            padding-left: 60px; /* Espaço para o ícone de pesquisa */
+            border-radius: 8px;
+            width: 300px;
+            font-size: 1rem;
+            color: #333;
+            outline: none;
+        }
+
+        #search-btn {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            color: #6200EA;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h1>Gerador de Currículos</h1>
+            <button id="refresh">
+                <span class="material-icons">refresh</span> Atualizar
+            </button>
+        </div>
+        <div class="right-panel">
+            <div id="search-container">
+                <input id="search" type="text" placeholder="Buscar arquivos...">
+                <button id="search-btn">
+                    <span class="material-icons">search</span>
+                </button>
+            </div>
+            <button id="gerar-link">
+                <span class="material-icons">link</span> Gerar Link
+            </button>
+            <div id="link-gerado"></div>
+            <button id="configurar">
+                <span class="material-icons">settings</span> Configurar Servidor
+            </button>
+        </div>
+    </div>
+
+    <div id="container">
+        <div id="jsonList"></div>
+        <div id="content">
+            <button id="gerar-curriculo" disabled>
+                <span class="material-icons">assignment</span> Gerar Currículo
+            </button>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

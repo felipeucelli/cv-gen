@@ -1,0 +1,60 @@
+.label{
+    margin-bottom: 10px;
+    display: flex;    
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+
+input, select{
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+
+}
+
+input:hover, select:hover {
+    border-color: #000000; /* Cor da borda ao passar o mouse */
+}
+
+button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f5f7fa; /* Cor de fundo claro */
+    border: 1px solid #ccc;    /* Borda cinza clara */
+    border-radius: 8px;        /* Bordas arredondadas */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px; /* Bordas arredondadas */
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+.error-page {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffdddd;
+    border: 1px solid #ffcccc; 
+    border-radius: 5px;
+}
+
+.inputs {
+    padding: 10px;
+    width: 90%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .inputs.error {
+    border: 2px solid red;
+  }
+  
+  .error-text {
+    color: red;
+    font-size: 12px;
+  }
+  

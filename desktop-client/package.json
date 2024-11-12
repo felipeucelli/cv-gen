@@ -1,0 +1,22 @@
+{
+  "name": "desktop-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . GeradorCurriculos --platform=win32 --arch=x64 --out=dist/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^32.2.0",
+    "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "docxtemplater": "^3.51.1",
+    "electron-json-storage": "^4.6.0",
+    "pizzip": "^3.1.7"
+  }
+}
