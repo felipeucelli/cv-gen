@@ -116,6 +116,9 @@ app.post('/api/salvar-dados', upload.single('imagem'), async (req, res) => {
       
     const dados = JSON.parse(req.body.dados);
 
+    const [ano, mes, dia]  = dados.nascimento.split('-');
+    dados.nascimento = `${dia}/${mes}/${ano}`;
+
     const fileName = `CURRICULO_${dados.nome}.json`;
     const filePath = path.join(dataFolder, fileName);
 

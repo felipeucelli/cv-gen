@@ -37,10 +37,24 @@ const AlgumComponente = () => {
     setImagem(file);
   };
 
+  const formatarTelefone = (valor) => {
+    return valor
+      .replace(/\D/g, '')
+      .replace(/^(\d{2})(\d)/g, '($1) $2')
+      .replace(/(\d{5})(\d)/, '$1-$2')
+      .slice(0, 15);
+  };
+
   const handleChange = (campo, valor) => {
-    setDados(prevState => ({
+    let novoValor = valor;
+
+    if (campo === 'telefone') {
+      novoValor = formatarTelefone(valor);
+    }
+
+    setDados((prevState) => ({
       ...prevState,
-      [campo]: valor,
+      [campo]: novoValor,
     }));
   };
 
@@ -185,7 +199,7 @@ const AlgumComponente = () => {
           <input
             type="date"
             value={dados.nascimento}
-            onChange={(e) => handleChange('nascimento', e.target.value.toUpperCase())}
+            onChange={(e) => handleChange('nascimento', e.target.value)}
             className={`inputs ${erros.nascimento ? 'error' : ''}`}
           />
           {erros.nascimento && <span className='error-text'>{erros.nascimento}</span>}
